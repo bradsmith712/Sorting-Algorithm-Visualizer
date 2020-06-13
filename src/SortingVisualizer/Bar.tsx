@@ -7,23 +7,10 @@ interface IProps {
   isSwapped: Boolean;
 }
 
-// const Bar: React.FC<IProps> = (props: IProps) => {
-//   const { value, index } = props;
-//   return (
-//     <div className="viz-bar" key={index} style={{
-//       backgroundColor: "blue",
-//       height: `${value}px`,
-//     }}>
-//       {value}
-//     </div>
-//   )
-// }
-
 const Bar: React.FC<IProps> = (props: IProps) => {
   const { value, index, isCompared, isSwapped } = props;
-  console.log('bar value = ', value);
 
-  let barColor = 'blue';
+  let barColor = '#3f51b5';
 
   if (isSwapped) {
     barColor = 'green';

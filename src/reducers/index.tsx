@@ -4,18 +4,41 @@ const COMPARE = 'COMPARE';
 const SWAP_START = 'SWAP_START';
 const SWAP_END = 'SWAP_END';
 const SLEEP = 'SLEEP';
+const SET_ARRAY_SIZE = 'SET_ARRAY_SIZE';
+const SET_SORT_SPEED = 'SET_SORT_SPEED';
+const SET_ALGORITHM = 'SET_ALGORITHM';
+const IS_SORTING = 'IS_SORTING';
 
 // ACTION CREATORS
 export const setNewArray = (array: number[]) => {
-  console.log('action creator setARray = ', array);
   return {
     type: GENERATE_NEW_ARRAY,
     payload: array
   }
 }
 
+export const setArraySize = (size: number) => {
+  return {
+    type: SET_ARRAY_SIZE,
+    payload: size
+  }
+}
+
+export const setSortSpeed = (speed: number) => {
+  return {
+    type: SET_SORT_SPEED,
+    payload: speed
+  }
+}
+
+export const setAlgorithm = (algorithm: string) => {
+  return {
+    type: SET_ALGORITHM,
+    payload: algorithm
+  }
+}
+
 export const compare = (compareIdxArr: number[]) => {
-  console.log('in compare ', compareIdxArr)
   return {
     type: COMPARE,
     payload: compareIdxArr
@@ -23,7 +46,6 @@ export const compare = (compareIdxArr: number[]) => {
 }
 
 export const swapStart = (swapIdxArr: number[]) => {
-  console.log('swapStart.. swapIdxArr = ', swapIdxArr);
   return {
     type: SWAP_START,
     payload: swapIdxArr
@@ -43,13 +65,25 @@ export const sleep = () => {
   }
 }
 
+export const setIsSorting = (isSorting: boolean) => {
+  console.log('setIsSorting = ', isSorting)
+  return {
+    type: IS_SORTING,
+    payload: isSorting
+  }
+}
+
 // ---------------------------- SEPARATE FILE
 
 // INITIAL STATE
 const defaultState = {
   array: [],
   swapped: [],
-  compared: []
+  compared: [],
+  arraySize: 50,
+  sortSpeed: 50,
+  algorithm: 'Bubble Sort',
+  isSorting: false
 }
 
 // REDUCER
@@ -57,7 +91,6 @@ const reducer = (state = defaultState, action: any) => {
   const { type, payload } = action;
   switch (type) {
     case GENERATE_NEW_ARRAY:
-      console.log('generate new array reducer ', payload)
       return {
         ...state,
         array: payload,
@@ -65,7 +98,6 @@ const reducer = (state = defaultState, action: any) => {
         compared: []
       }
     case COMPARE:
-      console.log('reducer compare ', payload);
       return {
         ...state,
         compared: payload,
@@ -88,6 +120,30 @@ const reducer = (state = defaultState, action: any) => {
         swapped: [],
         compared: []
       }
+    case SET_ARRAY_SIZE: {
+      return {
+        ...state,
+        arraySize: payload
+      }
+    }
+    case SET_SORT_SPEED: {
+      return {
+        ...state,
+        sortSpeed: payload
+      }
+    }
+    case SET_ALGORITHM: {
+      return {
+        ...state,
+        algorithm: payload
+      }
+    }
+    case IS_SORTING: {
+      return {
+        ...state,
+        isSorting: payload
+      }
+    }
     default:
       return state
   }

@@ -1,36 +1,7 @@
 import React from 'react';
-import { compare, swapStart, swapEnd, sleep } from '../reducers';
+import { compare, swapStart, swapEnd, sleep, setIsSorting } from '../reducers';
 
-// export function bubbleSort(array, setArray, setCompared, setSwapped) {
-//   // const dispatch = useDispatch();
-//   const actionArr = [];
-//   let isSorted = false;
-//   let counter = 0;
-
-//   const arrayCopy = [...array];
-
-//   while (!isSorted) {
-//     isSorted = true;
-//     for (let i = 0; i < arrayCopy.length - 1 - counter; i++) {
-//       actionArr.push({ type: 'compare', compared: [i, i + 1] })
-//       if (arrayCopy[i] > arrayCopy[i + 1]) {
-//         actionArr.push({ type: 'swapStart', swapped: [i, i + 1] });
-//         let temp = arrayCopy[i + 1];
-//         arrayCopy[i + 1] = arrayCopy[i];
-//         arrayCopy[i] = temp;
-//         isSorted = false;
-//         const arrayClone = [...arrayCopy];
-//         actionArr.push({ type: 'swapEnd', swapped: [i, i + 1], array: arrayClone });
-//       }
-//       actionArr.push({ type: 'sleep' })
-//     }
-//     counter++;
-//   }
-
-//   actionHandler(actionArr, setArray, setCompared, setSwapped);
-// }
-
-export function bubbleSort(array: number[], dispatch: any): void {
+export function bubbleSort(array: number[], dispatch: any, sortSpeed: number): void {
   const actionArr = [];
   let isSorted = false;
   let counter = 0;
@@ -55,35 +26,10 @@ export function bubbleSort(array: number[], dispatch: any): void {
     counter++;
   }
 
-  actionHandler(actionArr, dispatch);
+  actionHandler(actionArr, dispatch, sortSpeed);
 }
 
-async function actionHandler(actionArr: any, dispatch: any) {
-  for (let i = 0; i < actionArr.length; i++) {
-    console.log('action = ', actionArr[i]);
-    const action = actionArr[i];
-    const { type } = action;
-    if (type === 'compare') {
-      dispatch(compare(action.compared));
-      // setCompared(action.compared);
-      // setSwapped([]);
-    } else if (type === 'swapStart') {
-      dispatch(swapStart(action.swapped))
-      // setCompared([]);
-      // setSwapped(action.swapped);
-    } else if (type === 'swapEnd') {
-      dispatch(swapEnd(action.array));
-      // setArray(action.array);
-    } else if (type === 'sleep') {
-      dispatch(sleep());
-      // setSwapped([]);
-      // setCompared([]);
-    }
-    await wait(40);
-  }
-}
-
-export function insertionSort(array: number[], dispatch: any) {
+export function insertionSort(array: number[], dispatch: any, sortSpeed: number) {
   const actionArr = [];
   const arrayCopy = [...array];
 
@@ -106,10 +52,10 @@ export function insertionSort(array: number[], dispatch: any) {
     actionArr.push({ type: 'sleep' });
   }
 
-  actionHandler(actionArr, dispatch);
+  actionHandler(actionArr, dispatch, sortSpeed);
 }
 
-export function selectionSort(array: number[], dispatch: any) {
+export function selectionSort(array: number[], dispatch: any, sortSpeed: number) {
   const actionArr = [];
   const arrayCopy = [...array];
 
@@ -132,18 +78,16 @@ export function selectionSort(array: number[], dispatch: any) {
     actionArr.push({ type: 'sleep' });
   }
 
-  actionHandler(actionArr, dispatch);
+  actionHandler(actionArr, dispatch, sortSpeed);
 }
 
-export async function quickSort(array: number[], dispatch: any) {
-  // const actionArr = [];
-  await quickSortHelper(array, 0, array.length - 1, dispatch);
+export async function quickSort(array: number[], dispatch: any, sortSpeed: number) {
+  await quickSortHelper(array, 0, array.length - 1, dispatch, sortSpeed);
   dispatch(sleep());
-  // console.log('actionArr = ', actionArr);
-  // actionHandler(arrayArr, setArray, setCompared, setSwapped);
+  dispatch(setIsSorting(false));
 }
 
-async function quickSortHelper(array: number[], startIdx: number, endIdx: number, dispatch: any) {
+async function quickSortHelper(array: number[], startIdx: number, endIdx: number, dispatch: any, sortSpeed: number) {
   if (startIdx >= endIdx) return;
 
   const pivotIdx = startIdx;
@@ -153,16 +97,16 @@ async function quickSortHelper(array: number[], startIdx: number, endIdx: number
   while (rightIdx >= leftIdx) {
     // actionArr.push({ type: 'compare', compared: [pivotIdx, leftIdx, rightIdx] })
     dispatch(compare([pivotIdx, leftIdx, rightIdx]));
-    await wait(500);
+    await wait(sortSpeed);
     if (array[leftIdx] > array[pivotIdx] && array[rightIdx] < array[pivotIdx]) {
       // actionArr.push({ type: 'swapStart', swapped: [leftIdx, rightIdx] });
       dispatch(swapStart([leftIdx, rightIdx]));
-      await wait(500);
+      await wait(sortSpeed);
       swap(leftIdx, rightIdx, array);
       const arrayClone = [...array];
       // actionArr.push({ type: 'swapEnd', array: arrClone });
       dispatch(swapEnd(arrayClone));
-      await wait(500);
+      await wait(sortSpeed);
     }
     if (array[leftIdx] <= array[pivotIdx]) {
       leftIdx++;
@@ -174,20 +118,20 @@ async function quickSortHelper(array: number[], startIdx: number, endIdx: number
   }
   // actionArr.push({ type: 'swapStart', swapped: [pivotIdx, rightIdx] });
   dispatch(swapStart([leftIdx, rightIdx]));
-  await wait(500);
+  await wait(sortSpeed);
   swap(pivotIdx, rightIdx, array);
   const arrayClone = [...array];
   dispatch(swapEnd(arrayClone));
-  await wait(500);
+  await wait(sortSpeed);
   // actionArr.push({ type: 'swapEnd', array: arrClone });
 
   const isLeftSubSmaller = rightIdx - 1 - startIdx < endIdx - (rightIdx + 1);
   if (isLeftSubSmaller) {
-    await quickSortHelper(array, rightIdx + 1, endIdx, dispatch);
-    await quickSortHelper(array, startIdx, rightIdx - 1, dispatch);
+    await quickSortHelper(array, rightIdx + 1, endIdx, dispatch, sortSpeed);
+    await quickSortHelper(array, startIdx, rightIdx - 1, dispatch, sortSpeed);
   } else {
-    await quickSortHelper(array, rightIdx + 1, endIdx, dispatch);
-    await quickSortHelper(array, startIdx, rightIdx - 1, dispatch);
+    await quickSortHelper(array, rightIdx + 1, endIdx, dispatch, sortSpeed);
+    await quickSortHelper(array, startIdx, rightIdx - 1, dispatch, sortSpeed);
   }
 }
 
@@ -195,6 +139,25 @@ function swap(i: number, j: number, array: number[]) {
   let temp = array[j];
   array[j] = array[i];
   array[i] = temp;
+}
+
+async function actionHandler(actionArr: any, dispatch: any, sortSpeed: number) {
+  for (let i = 0; i < actionArr.length; i++) {
+    console.log('action = ', actionArr[i]);
+    const action = actionArr[i];
+    const { type } = action;
+    if (type === 'compare') {
+      dispatch(compare(action.compared));
+    } else if (type === 'swapStart') {
+      dispatch(swapStart(action.swapped))
+    } else if (type === 'swapEnd') {
+      dispatch(swapEnd(action.array));
+    } else if (type === 'sleep') {
+      dispatch(sleep());
+    }
+    await wait(sortSpeed);
+  }
+  dispatch(setIsSorting(false));
 }
 
 function wait(ms: number) {

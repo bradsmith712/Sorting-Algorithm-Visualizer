@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { setNewArray, swapStart } from '../reducers';
+import generateRandomArray from '../utils/generateRandomArray';
 
 import './VizContainer.css';
 import Bar from './Bar';
@@ -15,55 +16,34 @@ interface IState {
   array: number[];
   compared: number[];
   swapped: number[];
+  arraySize: number;
+  sortSpeed: number;
+  algorithm: string;
+  isSorting: boolean;
 }
 
 function VizContainer() {
   const array = useSelector((state: IState) => state.array);
   const compared = useSelector((state: IState) => state.compared);
   const swapped = useSelector((state: IState) => state.swapped);
+  const arraySize = useSelector((state: IState) => state.arraySize);
+  const sortSpeed = useSelector((state: IState) => state.sortSpeed);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    function generateArray() {
+    function generateArray(arraySize: number) {
       const randomArr = [];
-      for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-        randomArr.push(randomIntFromInterval(5, 400))
+      for (let i = 0; i < arraySize; i++) {
+        randomArr.push(randomIntFromInterval(100, 650))
       }
       return randomArr;
     }
 
-    const array = generateArray();
+    const array = generateArray(arraySize);
+
     dispatch(setNewArray(array));
-  }, []);
-
-  function generateArray() {
-    const randomArr = [];
-    for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-      randomArr.push(randomIntFromInterval(5, 750))
-    }
-    dispatch(setNewArray(randomArr));
-  }
-
-  function bubbleSortHandler() {
-    const arrayCopy = [...array];
-    bubbleSort(arrayCopy, dispatch);
-  }
-
-  function insertionSortHandler() {
-    const arrayCopy = [...array];
-    insertionSort(arrayCopy, dispatch);
-  }
-
-  function selectionSortHandler() {
-    const arrayCopy = [...array];
-    selectionSort(arrayCopy, dispatch);
-  }
-
-  function quickSortHandler() {
-    const arrayCopy = [...array];
-    quickSort(arrayCopy, dispatch);
-  }
+  }, [arraySize]);
 
   return (
     <div className="viz-container">
@@ -72,11 +52,6 @@ function VizContainer() {
         const isCompared = compared.includes(idx);
         return <Bar value={value} key={idx} index={idx} isSwapped={isSwapped} isCompared={isCompared} />
       })}
-      <button onClick={() => generateArray()}>Generate New Array</button>
-      <button onClick={() => bubbleSortHandler()}>Bubble Sort</button>
-      <button onClick={() => insertionSortHandler()}>Insertion Sort</button>
-      <button onClick={() => selectionSortHandler()}>Selection Sort</button>
-      <button onClick={() => quickSortHandler()}>Quick Sort</button>
     </div>
   )
 }

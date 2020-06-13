@@ -11,9 +11,9 @@
 } */
 
 .viz-container {
-  height: 100%;
+  height: calc(100% - 50px);
   width: 100%;
-  background: #61dafb;
+  background: white;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
