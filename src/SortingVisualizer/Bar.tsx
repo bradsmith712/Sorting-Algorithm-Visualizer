@@ -13,11 +13,12 @@ const Bar: React.FC<IProps> = (props: IProps) => {
   let barColor = '#3f51b5';
 
   if (isSwapped) {
-    barColor = 'green';
+    // barColor = 'green';
+    barColor = '#4caf50';
   }
 
   if (isCompared) {
-    barColor = 'red';
+    barColor = '#f50057';
   }
 
   return (

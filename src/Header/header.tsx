@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Typography, Button, Slider, Select, MenuItem } from '@material-ui/core';
 import { withStyles, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: '50px',
+    height: '70px',
     padding: '10px'
   },
   title: {
@@ -33,10 +34,15 @@ const useStyles = makeStyles({
     alignItems: 'center',
     width: '100%',
   },
+  sliderContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginRight: '50px'
+  },
   slider: {
-    width: '100px',
-    marginLeft: '50px',
-    cursor: 'pointer'
+    width: '125px',
+    // marginLeft: '50px',
   },
   selectCont: {
     width: '200px',
@@ -67,6 +73,8 @@ function Header() {
   const array = useSelector((state: IState) => state.array);
   const isSorting = useSelector((state: IState) => state.isSorting);
 
+  const [sliderVal, setSliderVal] = useState(50);
+
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -76,7 +84,10 @@ function Header() {
   }
 
   function handleSpeedSlider(evt: any, value: number) {
-    dispatch(setSortSpeed(value));
+    setSliderVal(value);
+    // use slope of line equation to calculate speed in ms of sort
+    const speed = Math.floor(-29.97 * value + 3000);
+    dispatch(setSortSpeed(speed));
   }
 
   function handleSelectChange(evt: React.ChangeEvent<{ value: unknown }>) {
@@ -108,31 +119,41 @@ function Header() {
     // <div className={classes.grow}>
     <AppBar position="static" className={classes.appContainer}>
       {/* <div className={classes.appContainer}> */}
-      <Typography variant="h6" color="inherit" className={classes.title}>
+      <Typography variant="h5" color="inherit" className={classes.title}>
         Sorting Visualizer
         </Typography>
       <div className={classes.modifiers}>
-        <div className={classes.slider}>
-          <Slider
-            aria-label="Array Size"
-            value={arraySize}
-            onChange={(evt: any, value: any) => handleSizeSlider(evt, value)}
-            min={4}
-            max={100}
-            defaultValue={50}
-            color="secondary"
-          />
+        <div className={classes.sliderContainer}>
+          <Typography>
+            Array Size
+          </Typography>
+          <div className={classes.slider}>
+            <Slider
+              aria-label="Array Size"
+              value={arraySize}
+              onChange={(evt: any, value: any) => handleSizeSlider(evt, value)}
+              min={4}
+              max={100}
+              defaultValue={50}
+              color="secondary"
+            />
+          </div>
         </div>
-        <div className={classes.slider}>
-          <Slider
-            aria-label="Sort Speed"
-            value={sortSpeed}
-            onChange={(evt: any, value: any) => handleSpeedSlider(evt, value)}
-            min={1}
-            max={100}
-            defaultValue={50}
-            color="secondary"
-          />
+        <div className={classes.sliderContainer}>
+          <Typography>
+            Sort Speed
+          </Typography>
+          <div className={classes.slider}>
+            <Slider
+              aria-label="Sort Speed"
+              value={sliderVal}
+              onChange={(evt: any, value: any) => handleSpeedSlider(evt, value)}
+              min={1}
+              max={100}
+              defaultValue={50}
+              color="secondary"
+            />
+          </div>
         </div>
         <div className={classes.selectCont}>
           <Select value={algorithm} onChange={handleSelectChange} variant="standard" classes={{
