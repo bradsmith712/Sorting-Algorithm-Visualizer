@@ -1,7 +1,45 @@
-.MuiSelect-icon {
-  color: white
+.header-variant-a.MuiAppBar-colorPrimary {
+  background-color: #3f51b5;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 10px 22px rgba(30, 41, 59, 0.18);
 }
 
-.MuiSelect-selectMenu {
-  color: white
+.header-variant-a .MuiTypography-root {
+  color: #e2e8f0;
+}
+
+.header-variant-a .MuiSelect-icon {
+  color: #cbd5e1;
+}
+
+.header-variant-a .MuiSelect-selectMenu {
+  color: #f8fafc;
+  font-weight: 500;
+}
+
+.header-variant-a .MuiSlider-rail {
+  color: #64748b;
+  opacity: 0.55;
+}
+
+.header-variant-a .MuiSlider-track {
+  color: #f59e0b;
+}
+
+.header-variant-a .MuiSlider-thumb {
+  color: #fbbf24;
+}
+
+.header-variant-a .MuiButton-contained {
+  background-color: #22c55e;
+  color: #052e16;
+  font-weight: 700;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(34, 197, 94, 0.35);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.header-variant-a .MuiButton-contained:hover {
+  background-color: #16a34a;
+  box-shadow: 0 8px 16px rgba(22, 163, 74, 0.4);
+  transform: translateY(-1px);
 }

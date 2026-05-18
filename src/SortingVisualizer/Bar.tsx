@@ -10,15 +10,14 @@ interface IProps {
 const Bar: React.FC<IProps> = (props: IProps) => {
   const { value, index, isCompared, isSwapped } = props;
 
-  let barColor = '#3f51b5';
+  let barColor = '#4f46e5';
 
   if (isSwapped) {
-    // barColor = 'green';
-    barColor = '#4caf50';
+    barColor = '#10b981';
   }
 
   if (isCompared) {
-    barColor = '#f50057';
+    barColor = '#f59e0b';
   }
 
   return (
