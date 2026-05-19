@@ -2,10 +2,9 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Typography, Button, Slider, Select, MenuItem } from '@material-ui/core';
-import { withStyles, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { white } from 'color-name';
+import { makeStyles } from '@material-ui/core/styles';
 import { setArraySize, setSortSpeed, setAlgorithm, setIsSorting } from '../reducers';
-import { bubbleSort, insertionSort, selectionSort, quickSort } from '../SortingAlgorithms';
+import { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort } from '../SortingAlgorithms';
 
 import './header.css';
 
@@ -18,14 +17,16 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: '70px',
-    padding: '10px'
+    height: '78px',
+    padding: '12px 16px'
   },
   title: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     minWidth: '200px',
+    color: '#f8fafc',
+    fontWeight: 600,
   },
   modifiers: {
     display: 'flex',
@@ -33,15 +34,16 @@ const useStyles = makeStyles({
     justifyContent: 'flex-end',
     alignItems: 'center',
     width: '100%',
+    gap: '18px'
   },
   sliderContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    marginRight: '50px'
+    marginRight: '4px'
   },
   slider: {
-    width: '125px',
+    width: '140px',
     // marginLeft: '50px',
   },
   selectCont: {
@@ -97,6 +99,8 @@ function Header() {
 
   function handleSort() {
     const arrayCopy = [...array];
+    let didStartSort = true;
+
     switch (algorithm) {
       case 'Bubble Sort':
         bubbleSort(arrayCopy, dispatch, sortSpeed);
@@ -110,14 +114,25 @@ function Header() {
       case 'Quick Sort':
         quickSort(arrayCopy, dispatch, sortSpeed);
         break;
+      case 'Merge Sort':
+        mergeSort(arrayCopy, dispatch, sortSpeed);
+        break;
+      default:
+        didStartSort = false;
+        break;
     }
 
-    dispatch(setIsSorting(true));
+    if (didStartSort) {
+      dispatch(setIsSorting(true));
+    }
   }
 
   return (
     // <div className={classes.grow}>
-    <AppBar position="static" className={classes.appContainer}>
+    <AppBar
+      position="static"
+      className={`${classes.appContainer} header-variant-a`}
+    >
       {/* <div className={classes.appContainer}> */}
       <Typography variant="h5" color="inherit" className={classes.title}>
         Sorting Visualizer
@@ -162,8 +177,9 @@ function Header() {
           }}>
             <MenuItem value="Bubble Sort">Bubble Sort</MenuItem>
             <MenuItem value="Insertion Sort">Insertion Sort</MenuItem>
-            <MenuItem value="Seletion Sort">Selection Sort</MenuItem>
+            <MenuItem value="Selection Sort">Selection Sort</MenuItem>
             <MenuItem value="Quick Sort">Quick Sort</MenuItem>
+            <MenuItem value="Merge Sort">Merge Sort</MenuItem>
           </Select>
         </div>
         <Button variant="contained" size="small" onClick={handleSort} disabled={isSorting}>Sort!</Button>

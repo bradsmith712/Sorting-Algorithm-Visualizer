@@ -95,7 +95,8 @@ const reducer = (state = defaultState, action: any) => {
         ...state,
         array: payload,
         swapped: [],
-        compared: []
+        compared: [],
+        isSorting: false
       }
     case COMPARE:
       return {
@@ -135,7 +136,10 @@ const reducer = (state = defaultState, action: any) => {
     case SET_ALGORITHM: {
       return {
         ...state,
-        algorithm: payload
+        algorithm: payload,
+        isSorting: false,
+        swapped: [],
+        compared: []
       }
     }
     case IS_SORTING: {
