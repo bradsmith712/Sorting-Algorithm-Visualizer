@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Typography, Button, Slider, Select, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { setArraySize, setSortSpeed, setAlgorithm, setIsSorting } from '../reducers';
-import { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort } from '../SortingAlgorithms';
+import { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort, heapSort } from '../SortingAlgorithms';
 
 import './header.css';
 
@@ -117,6 +117,9 @@ function Header() {
       case 'Merge Sort':
         mergeSort(arrayCopy, dispatch, sortSpeed);
         break;
+      case 'Heap Sort':
+        heapSort(arrayCopy, dispatch, sortSpeed);
+        break;
       default:
         didStartSort = false;
         break;
@@ -180,6 +183,7 @@ function Header() {
             <MenuItem value="Selection Sort">Selection Sort</MenuItem>
             <MenuItem value="Quick Sort">Quick Sort</MenuItem>
             <MenuItem value="Merge Sort">Merge Sort</MenuItem>
+            <MenuItem value="Heap Sort">Heap Sort</MenuItem>
           </Select>
         </div>
         <Button variant="contained" size="small" onClick={handleSort} disabled={isSorting}>Sort!</Button>

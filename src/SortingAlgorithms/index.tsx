@@ -3,3 +3,4 @@ export { insertionSort } from './insertionSort';
 export { selectionSort } from './selectionSort';
 export { quickSort } from './quickSort';
 export { mergeSort } from './mergeSort';
+export { heapSort } from './heapSort';
