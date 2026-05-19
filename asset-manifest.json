@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Sorting-Algorithm-Visualizer/static/css/main.5b2bb298.chunk.css",
-    "main.js": "/Sorting-Algorithm-Visualizer/static/js/main.89cd8dc9.chunk.js",
-    "main.js.map": "/Sorting-Algorithm-Visualizer/static/js/main.89cd8dc9.chunk.js.map",
-    "runtime-main.js": "/Sorting-Algorithm-Visualizer/static/js/runtime-main.10a1271e.js",
-    "runtime-main.js.map": "/Sorting-Algorithm-Visualizer/static/js/runtime-main.10a1271e.js.map",
-    "static/js/2.ef6c8607.chunk.js": "/Sorting-Algorithm-Visualizer/static/js/2.ef6c8607.chunk.js",
-    "static/js/2.ef6c8607.chunk.js.map": "/Sorting-Algorithm-Visualizer/static/js/2.ef6c8607.chunk.js.map",
+    "main.css": "/Sorting-Algorithm-Visualizer/static/css/main.9efdb95c.chunk.css",
+    "main.js": "/Sorting-Algorithm-Visualizer/static/js/main.95172fa7.chunk.js",
+    "main.js.map": "/Sorting-Algorithm-Visualizer/static/js/main.95172fa7.chunk.js.map",
+    "runtime-main.js": "/Sorting-Algorithm-Visualizer/static/js/runtime-main.98beb8b2.js",
+    "runtime-main.js.map": "/Sorting-Algorithm-Visualizer/static/js/runtime-main.98beb8b2.js.map",
+    "static/js/2.4eeef0e0.chunk.js": "/Sorting-Algorithm-Visualizer/static/js/2.4eeef0e0.chunk.js",
+    "static/js/2.4eeef0e0.chunk.js.map": "/Sorting-Algorithm-Visualizer/static/js/2.4eeef0e0.chunk.js.map",
     "index.html": "/Sorting-Algorithm-Visualizer/index.html",
-    "precache-manifest.ccc97d3163e866f20168f2ee81cb5aa7.js": "/Sorting-Algorithm-Visualizer/precache-manifest.ccc97d3163e866f20168f2ee81cb5aa7.js",
+    "precache-manifest.6a8b1e1f711e21ebc6872f5fe669fb7b.js": "/Sorting-Algorithm-Visualizer/precache-manifest.6a8b1e1f711e21ebc6872f5fe669fb7b.js",
     "service-worker.js": "/Sorting-Algorithm-Visualizer/service-worker.js",
-    "static/css/main.5b2bb298.chunk.css.map": "/Sorting-Algorithm-Visualizer/static/css/main.5b2bb298.chunk.css.map",
-    "static/js/2.ef6c8607.chunk.js.LICENSE.txt": "/Sorting-Algorithm-Visualizer/static/js/2.ef6c8607.chunk.js.LICENSE.txt"
+    "static/css/main.9efdb95c.chunk.css.map": "/Sorting-Algorithm-Visualizer/static/css/main.9efdb95c.chunk.css.map",
+    "static/js/2.4eeef0e0.chunk.js.LICENSE.txt": "/Sorting-Algorithm-Visualizer/static/js/2.4eeef0e0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.10a1271e.js",
-    "static/js/2.ef6c8607.chunk.js",
-    "static/css/main.5b2bb298.chunk.css",
-    "static/js/main.89cd8dc9.chunk.js"
+    "static/js/runtime-main.98beb8b2.js",
+    "static/js/2.4eeef0e0.chunk.js",
+    "static/css/main.9efdb95c.chunk.css",
+    "static/js/main.95172fa7.chunk.js"
   ]
 }
