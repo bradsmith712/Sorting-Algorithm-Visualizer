@@ -8,9 +8,6 @@ Tool for visualizing common sorting algorithms. Launch tool here - https://brads
 * Insert Sort
 * Selection Sort
 * Quick Sort
-
-#### Algorithms In Progress
-
 * Heap Sort
 * Merge Sort
 
