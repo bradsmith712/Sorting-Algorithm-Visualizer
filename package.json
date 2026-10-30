@@ -25,8 +25,8 @@
     "deploy": "gh-pages -d build",
     "deploy:pages": "git checkout master && git pull origin master && npm run deploy",
     "deploy:pages:safe": "git stash push -u -m \"pre-deploy-pages\" && git checkout master && git pull origin master && npm run deploy && git checkout - && { git stash pop || true; }",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

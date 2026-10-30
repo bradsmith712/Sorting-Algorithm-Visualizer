@@ -11,6 +11,8 @@ import { bubbleSort, insertionSort, selectionSort, quickSort } from '../SortingA
 // import { connect } from 'react-redux';
 
 const NUMBER_OF_ARRAY_BARS = 15;
+const MIN_BAR_VALUE = 100;
+const MAX_BAR_VALUE = 650;
 
 interface IState {
   array: number[];
@@ -35,7 +37,7 @@ function VizContainer() {
     function generateArray(arraySize: number) {
       const randomArr = [];
       for (let i = 0; i < arraySize; i++) {
-        randomArr.push(randomIntFromInterval(100, 650))
+        randomArr.push(randomIntFromInterval(MIN_BAR_VALUE, MAX_BAR_VALUE))
       }
       return randomArr;
     }
@@ -50,7 +52,7 @@ function VizContainer() {
       {array.map((value: number, idx: number) => {
         const isSwapped = swapped.includes(idx);
         const isCompared = compared.includes(idx);
-        return <Bar value={value} key={idx} index={idx} isSwapped={isSwapped} isCompared={isCompared} />
+        return <Bar value={value} maxValue={MAX_BAR_VALUE} key={idx} index={idx} isSwapped={isSwapped} isCompared={isCompared} />
       })}
     </div>
   )

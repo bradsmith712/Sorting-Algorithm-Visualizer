@@ -8,6 +8,8 @@ import { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort, heapSor
 
 import './header.css';
 
+const MOBILE = '@media (max-width: 900px)';
+
 const useStyles = makeStyles({
   grow: {
     // flexGrow: 1,
@@ -18,15 +20,27 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: '78px',
-    padding: '12px 16px'
+    padding: '12px 16px',
+    [MOBILE]: {
+      flexDirection: 'column',
+      height: 'auto',
+      padding: '12px 16px 14px',
+      gap: '8px'
+    }
   },
   title: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     minWidth: '200px',
+    whiteSpace: 'nowrap',
     color: '#f8fafc',
     fontWeight: 600,
+    [MOBILE]: {
+      minWidth: 0,
+      justifyContent: 'center',
+      fontSize: '1.25rem'
+    }
   },
   modifiers: {
     display: 'flex',
@@ -34,20 +48,57 @@ const useStyles = makeStyles({
     justifyContent: 'flex-end',
     alignItems: 'center',
     width: '100%',
-    gap: '18px'
+    gap: '18px',
+    [MOBILE]: {
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      gap: '4px 20px'
+    }
   },
   sliderContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    marginRight: '4px'
+    marginRight: '4px',
+    [MOBILE]: {
+      flex: '1 1 0',
+      minWidth: 0,
+      marginRight: 0
+    }
   },
   slider: {
     width: '140px',
     // marginLeft: '50px',
+    [MOBILE]: {
+      width: '100%'
+    }
+  },
+  break: {
+    display: 'none',
+    [MOBILE]: {
+      display: 'block',
+      flexBasis: '100%',
+      height: 0
+    }
   },
   selectCont: {
     width: '200px',
+    [MOBILE]: {
+      flex: '1 1 auto',
+      width: 'auto',
+      textAlign: 'left'
+    }
+  },
+  selectRoot: {
+    [MOBILE]: {
+      width: '100%'
+    }
+  },
+  sortButton: {
+    [MOBILE]: {
+      minWidth: '96px',
+      height: '36px'
+    }
   },
   select: {
     color: 'white',
@@ -173,8 +224,9 @@ function Header() {
             />
           </div>
         </div>
+        <div className={classes.break} />
         <div className={classes.selectCont}>
-          <Select value={algorithm} onChange={handleSelectChange} variant="standard" classes={{
+          <Select value={algorithm} onChange={handleSelectChange} variant="standard" className={classes.selectRoot} classes={{
             select: classes.select,
             icon: classes.icon
           }}>
@@ -186,7 +238,7 @@ function Header() {
             <MenuItem value="Heap Sort">Heap Sort</MenuItem>
           </Select>
         </div>
-        <Button variant="contained" size="small" onClick={handleSort} disabled={isSorting}>Sort!</Button>
+        <Button variant="contained" size="small" className={classes.sortButton} onClick={handleSort} disabled={isSorting}>Sort!</Button>
       </div>
       {/* </div> */}
     </AppBar >
