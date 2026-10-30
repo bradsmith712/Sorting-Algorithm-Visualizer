@@ -22,5 +22,5 @@ export function insertionSort(array: number[], dispatch: any, sortSpeed: number)
     actionArr.push({ type: 'sleep' });
   }
 
-  actionHandler(actionArr, dispatch, sortSpeed);
+  actionHandler(actionArr, arrayCopy.length, dispatch, sortSpeed);
 }

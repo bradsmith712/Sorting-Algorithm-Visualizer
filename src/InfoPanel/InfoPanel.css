@@ -1,0 +1,73 @@
+.info-panel {
+  padding: 28px 26px;
+  text-align: left;
+  overflow-y: auto;
+}
+
+.info-eyebrow,
+.info-stat dt {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.info-name {
+  margin: 8px 0 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.info-description {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.info-stats {
+  margin: 24px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 22px;
+}
+
+.info-stat dd {
+  margin: 6px 0 0;
+  font-size: 21px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* phone: stats sit side by side in a 2x2 grid */
+@media (max-width: 900px) {
+  .info-panel {
+    padding: 22px 20px 24px;
+    overflow: visible;
+  }
+
+  .info-name {
+    font-size: 24px;
+  }
+
+  .info-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .info-stat + .info-stat {
+    padding-left: 20px;
+    border-left: 1px solid var(--border);
+  }
+
+  .info-stat dd {
+    font-size: 20px;
+  }
+}

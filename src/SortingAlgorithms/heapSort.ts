@@ -10,11 +10,12 @@ export function heapSort(array: number[], dispatch: any, sortSpeed: number) {
     actionArr.push({ type: 'swapStart', swapped: [0, endIdx] });
     swap(0, endIdx, arrayCopy);
     actionArr.push({ type: 'swapEnd', array: [...arrayCopy] });
+    actionArr.push({ type: 'markSorted', sorted: [endIdx] });
     actionArr.push({ type: 'sleep' });
     siftDown(0, endIdx - 1, arrayCopy, actionArr);
   }
 
-  actionHandler(actionArr, dispatch, sortSpeed);
+  actionHandler(actionArr, arrayCopy.length, dispatch, sortSpeed);
 }
 
 function buildMaxHeap(array: number[], actionArr: SortingAction[]) {

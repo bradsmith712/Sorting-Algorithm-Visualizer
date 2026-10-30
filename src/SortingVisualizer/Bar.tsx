@@ -1,29 +1,18 @@
 import * as React from 'react';
 
+export type BarState = 'unsorted' | 'comparing' | 'swapping' | 'sorted';
+
 interface IProps {
   value: number;
   maxValue: number;
-  index: number;
-  isCompared: Boolean;
-  isSwapped: Boolean;
+  state: BarState;
 }
 
 const Bar: React.FC<IProps> = (props: IProps) => {
-  const { value, maxValue, index, isCompared, isSwapped } = props;
-
-  let barColor = '#4f46e5';
-
-  if (isSwapped) {
-    barColor = '#10b981';
-  }
-
-  if (isCompared) {
-    barColor = '#f59e0b';
-  }
+  const { value, maxValue, state } = props;
 
   return (
-    <div className="viz-bar" key={index} style={{
-      backgroundColor: barColor,
+    <div className={`viz-bar viz-bar-${state}`} style={{
       // scale relative to the tallest possible bar so it fits any screen height
       height: `${(value / maxValue) * 100}%`,
     }}>
@@ -31,4 +20,4 @@ const Bar: React.FC<IProps> = (props: IProps) => {
   )
 }
 
-export default Bar;
+export default React.memo(Bar);

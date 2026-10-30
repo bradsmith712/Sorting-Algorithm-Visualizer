@@ -22,8 +22,10 @@ export function bubbleSort(array: number[], dispatch: any, sortSpeed: number): v
       }
       actionArr.push({ type: 'sleep' });
     }
+    // the largest remaining value has bubbled into its final slot
+    actionArr.push({ type: 'markSorted', sorted: [arrayCopy.length - 1 - counter] });
     counter++;
   }
 
-  actionHandler(actionArr, dispatch, sortSpeed);
+  actionHandler(actionArr, arrayCopy.length, dispatch, sortSpeed);
 }

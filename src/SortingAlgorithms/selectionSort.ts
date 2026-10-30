@@ -14,14 +14,17 @@ export function selectionSort(array: number[], dispatch: any, sortSpeed: number)
       }
       actionArr.push({ type: 'sleep' });
     }
-    actionArr.push({ type: 'swapStart', swapped: [swapIdx, lowestIdx] });
-    let temp = arrayCopy[swapIdx];
-    arrayCopy[swapIdx] = arrayCopy[lowestIdx];
-    arrayCopy[lowestIdx] = temp;
-    const arrClone = [...arrayCopy];
-    actionArr.push({ type: 'swapEnd', array: arrClone });
-    actionArr.push({ type: 'sleep' });
+    if (lowestIdx !== swapIdx) {
+      actionArr.push({ type: 'swapStart', swapped: [swapIdx, lowestIdx] });
+      let temp = arrayCopy[swapIdx];
+      arrayCopy[swapIdx] = arrayCopy[lowestIdx];
+      arrayCopy[lowestIdx] = temp;
+      const arrClone = [...arrayCopy];
+      actionArr.push({ type: 'swapEnd', array: arrClone });
+      actionArr.push({ type: 'sleep' });
+    }
+    actionArr.push({ type: 'markSorted', sorted: [swapIdx] });
   }
 
-  actionHandler(actionArr, dispatch, sortSpeed);
+  actionHandler(actionArr, arrayCopy.length, dispatch, sortSpeed);
 }

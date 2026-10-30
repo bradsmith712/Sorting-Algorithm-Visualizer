@@ -5,7 +5,7 @@ export function mergeSort(array: number[], dispatch: any, sortSpeed: number) {
   const arrayCopy = [...array];
 
   mergeSortHelper(arrayCopy, 0, arrayCopy.length - 1, actionArr);
-  actionHandler(actionArr, dispatch, sortSpeed);
+  actionHandler(actionArr, arrayCopy.length, dispatch, sortSpeed);
 }
 
 function mergeSortHelper(array: number[], startIdx: number, endIdx: number, actionArr: SortingAction[]) {
@@ -18,6 +18,8 @@ function mergeSortHelper(array: number[], startIdx: number, endIdx: number, acti
 }
 
 function merge(array: number[], startIdx: number, middleIdx: number, endIdx: number, actionArr: SortingAction[]) {
+  // only the top-level merge writes values into their final positions
+  const isFinalMerge = startIdx === 0 && endIdx === array.length - 1;
   const leftSubarray = array.slice(startIdx, middleIdx + 1);
   const rightSubarray = array.slice(middleIdx + 1, endIdx + 1);
 
@@ -40,15 +42,17 @@ function merge(array: number[], startIdx: number, middleIdx: number, endIdx: num
 
     actionArr.push({ type: 'swapStart', swapped: [sortedPointer, sortedPointer] });
     actionArr.push({ type: 'swapEnd', array: [...array] });
+    if (isFinalMerge) actionArr.push({ type: 'markSorted', sorted: [sortedPointer] });
     actionArr.push({ type: 'sleep' });
     sortedPointer++;
   }
 
   while (leftPointer < leftSubarray.length) {
     array[sortedPointer] = leftSubarray[leftPointer];
-    actionArr.push({ type: 'compare', compared: [sortedPointer] });
+    actionArr.push({ type: 'compare', compared: [sortedPointer], count: 0 });
     actionArr.push({ type: 'swapStart', swapped: [sortedPointer, sortedPointer] });
     actionArr.push({ type: 'swapEnd', array: [...array] });
+    if (isFinalMerge) actionArr.push({ type: 'markSorted', sorted: [sortedPointer] });
     actionArr.push({ type: 'sleep' });
     leftPointer++;
     sortedPointer++;
@@ -56,9 +60,10 @@ function merge(array: number[], startIdx: number, middleIdx: number, endIdx: num
 
   while (rightPointer < rightSubarray.length) {
     array[sortedPointer] = rightSubarray[rightPointer];
-    actionArr.push({ type: 'compare', compared: [sortedPointer] });
+    actionArr.push({ type: 'compare', compared: [sortedPointer], count: 0 });
     actionArr.push({ type: 'swapStart', swapped: [sortedPointer, sortedPointer] });
     actionArr.push({ type: 'swapEnd', array: [...array] });
+    if (isFinalMerge) actionArr.push({ type: 'markSorted', sorted: [sortedPointer] });
     actionArr.push({ type: 'sleep' });
     rightPointer++;
     sortedPointer++;

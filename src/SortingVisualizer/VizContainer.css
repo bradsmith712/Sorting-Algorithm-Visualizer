@@ -1,46 +1,100 @@
-/* .viz-container {
-  height: 100%;
-  width: 100%;
-  background: #61dafb;
+.viz-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 28px 28px 22px;
 }
-
-.viz-bar {
-  width: 2px;
-  display: inline-block;
-  margin: 0 1px;
-} */
 
 .viz-container {
   flex: 1;
   min-height: 0;
-  width: 100%;
-  overflow: hidden;
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
-  padding: 14px 14px 0;
-  box-sizing: border-box;
+  gap: 3px;
 }
 
 .viz-bar {
   flex: 1 1 0;
-  max-width: 10px;
   min-width: 1px;
-  display: flex;
-  margin: 0 1px;
-  border-radius: 3px 3px 0 0;
+  max-width: 18px;
+  border-radius: 4px 4px 0 0;
   transition: height 120ms ease, background-color 120ms ease;
 }
 
-@media (max-width: 600px) {
+.viz-bar-unsorted { background-color: var(--bar-unsorted); }
+.viz-bar-comparing { background-color: var(--bar-comparing); }
+.viz-bar-swapping { background-color: var(--bar-swapping); }
+.viz-bar-sorted { background-color: var(--bar-sorted); }
+
+.viz-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 32px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.viz-legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .viz-card {
+    padding: 20px 16px 18px;
+  }
+
   .viz-container {
-    padding: 12px 8px 0;
+    flex: none;
+    height: max(280px, 42vh);
+    gap: 2px;
   }
 
   .viz-bar {
-    margin: 0 0.5px;
     border-radius: 2px 2px 0 0;
+  }
+
+  .viz-legend {
+    gap: 6px 14px;
+    margin-top: 18px;
+    font-size: 12.5px;
+  }
+
+  .viz-legend li {
+    gap: 6px;
+  }
+
+  .viz-legend-dot {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+/* very dense arrays on narrow screens: drop the gaps so bars stay visible */
+@media (max-width: 480px) {
+  .viz-container {
+    gap: 1px;
+  }
+
+  .viz-legend {
+    gap: 6px 11px;
+    font-size: 12px;
+  }
+
+  .viz-legend li {
+    gap: 5px;
   }
 }
